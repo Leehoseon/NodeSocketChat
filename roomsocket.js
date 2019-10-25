@@ -16,6 +16,8 @@ module.exports = (io) => {
 
     io.on('connection', (socket) => {
 
+        //console.log(io.engine.clientsCount); //client total count
+
         socket.on('disconnect', () => {
             console.log('user disconnected');
         });

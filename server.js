@@ -11,13 +11,19 @@ app.use(express.static(path.join(__dirname, 'html'))); //정적 파일들이 있
 
 app.use(express.static('/socket.io/socket.io.js')); //index.html에서 io.js 파일 사용 가능하도록 설정
 
-//all socket
+//index
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'html', 'index.html'));
 });
 
+//all socket
+app.get('/chat', (req, res) => {
+  res.sendFile(path.join(__dirname, 'html', 'all.html'));
+});
+
+
 //room socket
-app.get('/room', (req, res) => {
+app.get('/chat', (req, res) => {
   res.sendFile(path.join(__dirname, 'html', 'room.html'));
 });
 
@@ -29,6 +35,6 @@ app.get('/about', (req, res) => {
 const server = app.listen(8080, () => {
   console.log('Express App on port 8080!');
   const io = SocketIo(server); // socket.io와 서버 연결하는 부분
-  //allSocketEvents(io); // 전체 한 방에서 채팅
-  roomSocketEvents(io); // 각자 방을 나눠 채팅
+  allSocketEvents(io); // 전체 한 방에서 채팅
+  //roomSocketEvents(io); // 각자 방을 나눠 채팅
 });
